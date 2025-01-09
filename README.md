@@ -34,10 +34,3 @@ A full-stack application for an Auto Machine Learning workflow with a FastAPI ba
 cd backend
 pip install -r requirements.txt
 uvicorn main:app --reload
-
-### Frontend
-'''bash
-Copy code
-cd frontend
-npm install
-npm start
