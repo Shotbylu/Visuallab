@@ -1,0 +1,16 @@
+AutoML-Dashboard/
+├── backend/
+│   ├── main.py                  # FastAPI backend implementation
+│   ├── requirements.txt         # Backend dependencies
+│   ├── utils.py                 # Helper functions
+│   └── models/                  # Trained models storage
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── App.jsx              # React app entry point
+│   │   ├── styles/
+│   │   ├── hooks/
+│   └── package.json             # Frontend dependencies
+├── .gitignore                   # Git ignored files
+├── README.md                    # Project documentation
+└── LICENSE                      # License file
