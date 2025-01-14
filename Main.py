@@ -12,10 +12,10 @@ import io
 
 app = FastAPI()
 
-# Add CORS middleware
+# Add CORS middleware to allow requests from frontend (React)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3000"],  # Adjust based on your frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -35,6 +35,7 @@ async def upload_file(file: UploadFile = File(...)):
     global current_dataset
     contents = await file.read()
     
+    # Read CSV content to pandas DataFrame
     df = pd.read_csv(io.StringIO(contents.decode('utf-8')))
     current_dataset = df
     
@@ -54,7 +55,7 @@ async def train_model():
     if current_dataset is None:
         return {"error": "No dataset uploaded"}
     
-    # Assuming last column is target variable
+    # Assuming the last column is the target variable
     X = current_dataset.iloc[:, :-1]
     y = current_dataset.iloc[:, -1]
     
@@ -65,7 +66,7 @@ async def train_model():
     
     predictions = model.predict(X_test)
     
-    # Calculate metrics
+    # Calculate metrics using scikit-learn
     from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
     metrics = {
         "accuracy": float(accuracy_score(y_test, predictions)),
@@ -81,7 +82,7 @@ async def download_model():
     if model is None:
         return {"error": "No trained model available"}
     
-    # Save model to memory
+    # Save model to memory and return as bytes
     model_bytes = pickle.dumps(model)
     return model_bytes
 
